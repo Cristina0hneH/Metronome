@@ -2,6 +2,8 @@ import React from 'react';
 import './Metronome.css';
 import {useState} from 'react';
 import click1 from "../components/click1.wav";
+let timer = null;
+
  
 export default function Metronome() {
     // bpm is going take the value of the imput type range; 
@@ -13,16 +15,29 @@ export default function Metronome() {
     const handleBpmChange = (e) =>{
         const slide = e.target.value;
         setBpm(slide);
-
+        
     }
 
     const handleClick = ()=>{
-      audioClick1.play();
+      
+      const playClick = () => {
+        audioClick1.play();
+    };
+
+      if (playing) {
+        // Stop the timer
+        clearInterval(timer);
+        setPlaying(false);
+      } else {
+        // Start a timer with the current BPM
+        timer = setInterval(playClick, (60 / bpm) * 1000);
+   
+        setPlaying(true);
+        playClick();
+      }
+    
 
     }
-
-    
-    
    
     return (
       <div className="metronome">
