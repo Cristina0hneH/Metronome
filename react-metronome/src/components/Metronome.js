@@ -17,7 +17,7 @@ export default function Metronome() {
     }
 
     const handleClick = ()=>{
-      
+      audioClick1.play();
 
     }
 
